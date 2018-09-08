@@ -84,16 +84,198 @@ int main(){
 输入包含多组数据数据，每组数据占一行，由两个整数A和B组成（-10^9 < A,B < 10^9）。
 输出
 请计算A+B的结果，并以正常形式输出，每组数据占一行。
-*/
+
 #include <stdio.h>
 #include <string.h>
-void caculator(char a[],char b[])
+
+long long  element(char a[])
 {
-	
+	long long num=0;
+	int lenth=strlen(a);
+	if (a[0]=='-')
+	{
+		for (int i=1;i<lenth;i++)
+		{
+			if (a[i]==',') continue;
+			else num=(num+(long long)(a[i]-'0'))*10;
+		}
+		return -num/10;
+	}
+	else 
+	{
+		for (int i=0;i<lenth;i++)
+		{
+			if (a[i]==',') continue;
+			else num=(num+(long long)(a[i]-'0'))*10;
+		}
+		return num/10;
+	}
 }
 
 int main()
 {
-	
+	char a[100],b[100];
+	while (scanf("%s %s",a,b)!=EOF)
+	{
+		printf("%lld\n",element(a)+element(b));
+	}
+	return 0;
  } 
- 
+ //below is example 直接的字符串的大数加减 
+#include <stdio.h>
+#include <iostream>
+#include <vector>
+#include <math.h>
+#include <algorithm>
+#include <queue>
+#include <string.h>
+#include <set>
+#include <stack>
+#include <stdlib.h>
+#include <time.h>
+
+using namespace std;
+
+struct Node
+{
+    int d[10009];
+    int len;
+    bool f;
+
+    Node() {memset(d, 0, sizeof(d));}
+    Node(char *s)
+    {
+        memset(d, 0, sizeof(d));
+        if(s[0] == '-')
+            f = 1, s++;
+        else
+            f = 0;
+        int i = 0;
+        while(s[i] != '\0')
+        {
+            d[i] = s[i] - '0';
+            ++i;
+        }
+        len = i;
+        for(int i=0,j=len-1; i<j; i++,j--)
+            swap(d[i],d[j]);
+    }
+
+    bool operator < (const Node &t) const
+    {
+        if(this->len == t.len)
+        {
+            for(int i=t.len-1; i>=0; i--)
+            {
+                if(this->d[i] < t.d[i])
+                    return true;
+                else if(this->d[i] > t.d[i])
+                    return false;
+            }
+        }
+        return this->len <= t.len;
+    }
+
+    Node operator + (const Node &t) const
+    {
+        Node ans;
+        if(t.f == this->f)//符号相同
+        {
+            ans.f = this->f;
+            int len = max(t.len, this->len);
+            ans.len = len;
+            for(int i=0;i<len;i++)
+            {
+                ans.d[i] += this->d[i] + t.d[i];
+                ans.d[i+1] += ans.d[i] / 10;
+                ans.d[i] %= 10;
+            }
+            if(ans.d[len] != 0)
+                ans.len++;
+            while(ans.len > 1 && ans.d[ans.len-1] == 0)
+                ans.len--;
+        }
+        else
+        {
+            if(t < (*this))
+                ans = (*this) - t;
+            else
+                ans = t - (*this);
+        }
+        return ans;
+    }
+
+    Node operator - (const Node &t) const
+    {
+        Node ans;
+        ans.f = this->f;
+        int len = this->len;
+        ans.len = len;
+        for(int i=0;i<len;i++)
+        {
+            ans.d[i] += this->d[i] - t.d[i];
+            if(ans.d[i] < 0)
+            {
+                ans.d[i] += 10;
+                ans.d[i+1]--;
+            }
+        }
+        while(ans.len > 1 && ans.d[ans.len-1] == 0)
+            ans.len--;
+        return ans;
+    }
+};
+
+char str[10009];
+
+int main()
+{
+    cin>>str;
+    Node a(str);
+    cin>>str;
+    Node b(str);
+    Node ans = a + b;
+    if(ans.f)
+        cout<<"-";
+    for(int i=ans.len-1; i>=0; i--)
+        cout<<ans.d[i];
+    return 0;
+}*/
+
+/*
+第三题：题目描述
+写个算法，对2个小于1000000000的输入，求结果。特殊乘法举例：123 * 45 = 1*4 +1*5 +2*4 +2*5 +3*4+3*5
+输入
+ 两个小于1000000000的数
+
+输出
+ 输入可能有多组数据，对于每一组数据，输出Input中的两个数按照题目要求的方法进行运算后得到的结果。 
+
+#include <stdio.h>
+#include <string.h>
+void input(char a[],char b[])
+{
+	int lenth1,lenth2;
+	lenth1=strlen(a);
+	lenth2=strlen(b);
+	int sum=0;
+	for (int i=0;i<lenth1;i++)
+	{
+		for (int j=0;j<lenth2;j++)
+		{
+			sum=sum+(a[i]-'0')*(b[j]-'0');
+		}
+	}
+	printf("%d\n",sum);
+}
+
+int main()
+{
+	char a[10000],b[10000];
+	while (scanf("%s %s",a,b)!=EOF)
+	{
+		input(a,b);
+	}
+	return 0;
+}
+*/ 
