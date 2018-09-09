@@ -310,6 +310,7 @@ int main()
  } */
  
  /*
+ 第五题 
  题目描述
 The task is really simple: given N exits on a highway which forms a simple cycle, 
 you are supposed to tell the shortest distance between any pair of exits.
@@ -416,6 +417,7 @@ int main()
 }
 */
 /*
+第六题 
 题目描述
 给定区间[-231, 231]内的3个整数A、B和C，请判断A+B是否大于C。
 输入
@@ -471,3 +473,287 @@ int main()
 	return 0;	
 }
 */
+/*
+第七题：
+题目描述
+给定一系列正整数，请按要求对数字进行分类，并输出以下5个数字：
+
+A1 = 能被5整除的数字中所有偶数的和；
+A2 = 将被5除后余1的数字按给出顺序进行交错求和，即计算n1-n2+n3-n4...；
+A3 = 被5除后余2的数字的个数；
+A4 = 被5除后余3的数字的平均数，精确到小数点后1位；
+A5 = 被5除后余4的数字中最大数字。
+输入
+每个输入包含1个测试用例。每个测试用例先给出一个不超过1000的正整数N，随后给出N个不超过1000的待分类的正整数。数字间以空格分隔。
+输出
+对给定的N个正整数，按题目要求计算A1~A5并在一行中顺序输出。数字间以空格分隔，但行末不得有多余空格。
+
+若其中某一类数字不存在，则在相应位置输出“N”。 
+
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int N;
+	while (scanf("%d",&N)!=EOF)
+	{
+		int a;
+		int flag=1;
+		int A[5]={0,0,0,0,0};
+		int a3=0;
+		for (int i=0;i<N;i++)
+		{
+			scanf("%d",&a);
+			if (a%5==0&&a%2==0)
+			{
+				A[0]=A[0]+a;
+			}
+			else if (a%5==1)
+			{
+				if (flag)
+				{
+					A[1]=A[1]+a;
+					flag=0;
+				}
+				else
+				{
+					A[1]=A[1]-a;
+					flag=1;
+				}
+			}
+			else if (a%5==2)
+			{
+				A[2]++;
+			}
+			else if (a%5==3)
+			{
+				A[3]=A[3]+a;
+				a3++;
+			}
+			else if (a%5==4)
+			{
+				if (a>A[4])
+				{
+					A[4]=a;
+				}
+			}
+		}
+		for (int i=0;i<3;i++)
+		{
+			if (A[i]==0) printf("N ");
+			else printf("%d ",A[i]);
+		}
+		if (A[3]==0) printf("N ");
+		else printf("%.1f ",(float)A[3]/(float)a3);
+		if (A[4]==0) printf("N\n");
+		else printf("%d\n",A[4]);	
+	}
+	return 0; 
+ } 
+ //below is example
+ #include <stdio.h>
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int main(){
+    int n, num;
+    int a1 = 0, a2 = 0, a3 = 0, a4 = 0, a5 = 0;
+    bool existA1 = false, existA2 = false;
+    int countA4 = 0;
+    scanf("%d", &n);
+    for(int i = 0, j = 0; i < n; i++){
+        scanf("%d", &num);
+        if(num % 5 == 0){
+            if(num % 2 == 0){
+                existA1 = true;
+                a1 += num;
+            }
+        }
+        else if(num % 5 == 1){
+            existA2 = true;
+            a2 += num * pow((double)(-1), j);
+            j++;
+        }
+        else if(num % 5 == 2){
+            a3++;
+        }
+        else if(num % 5 == 3){
+            a4 += num;
+            countA4++;
+        }
+        else{
+            a5 = (num > a5 ? num : a5);
+        }
+    }
+    if(existA1){
+        printf("%d", a1);
+    }
+    else{
+        printf("%c", 'N');
+    }
+    if(existA2){
+        printf(" %d", a2);
+    }
+    else{
+        printf(" %c", 'N');
+    }
+    if(a3 != 0){
+        printf(" %d", a3);
+    }
+    else{
+        printf(" %c", 'N');
+    }
+    if(countA4 != 0){
+        printf(" %.1f", (double)a4 / countA4);
+    }
+    else{
+        printf(" %c", 'N');
+    }
+    if(a5 != 0){
+        printf(" %d\n", a5);
+    }
+    else{
+        printf(" %c\n", 'N');
+    }
+    return 0;
+}
+ */
+ /*
+ 第八题： 
+ 题目描述
+正整数A的“DA（为1位整数）部分”定义为由A中所有DA组成的新整数PA。例如：给定A = 3862767，DA = 6，则A的“6部分”PA是66，因为A中有2个6。
+
+现给定A、DA、B、DB，请编写程序计算PA + PB。
+
+输入
+输入在一行中依次给出A、DA、B、DB，中间以空格分隔，其中0 < A, B < 1010。
+输出
+在一行中输出PA + PB的值。
+ 
+ 
+ 
+ #include <stdio.h>
+ #include <string.h>
+ 
+ int main()
+ {
+ 	char A[1010],DA,B[1010],DB;
+ 	while (scanf("%s %c %s %c",A,&DA,B,&DB)!=EOF)
+ 	{
+ 	 	int lenth1,lenth2,num1=0,num2=0;
+ 		lenth1=strlen(A);
+ 		lenth2=strlen(B);
+ 		int sum1=0,sum2=0;
+		for (int i=0;i<lenth1;i++)
+ 		{
+ 			if (A[i]==DA)
+ 			{
+ 				num1++;
+			 }
+		 }
+		 for (int i=0;i<lenth2;i++)
+		 {
+		 	if (B[i]==DB)
+		 	{
+		 		num2++;
+			 }
+		 }
+		 for (int i=0;i<num1;i++)
+		 {
+			sum1=(sum1+DA-'0')*10;
+		 }
+		 for (int i=0;i<num2;i++)
+		 {
+		 	sum2=(sum2+DB-'0')*10;
+		 }
+		 printf("%d\n",(sum1+sum2)/10);	
+	} 
+	 return 0;
+ }
+ //below is example
+ #include <iostream>
+using namespace std;
+int main()
+{
+    int numA, numB;
+    int Da, Db;
+
+    cin >> numA >> Da >> numB >> Db;
+
+    int tempNumA = 0;
+    int tempNumB = 0;
+    while (numA != 0)
+    {
+        if (numA % 10 == Da)
+        {
+            tempNumA = tempNumA * 10 + Da;
+        }
+        numA =numA/ 10;
+    }
+    while (numB != 0)
+    {
+        if (numB%10 == Db)
+        {
+            tempNumB = tempNumB * 10 + Db;
+        }
+        numB =numB/ 10;
+    }
+    long long relt = tempNumA + tempNumB;
+    cout << relt << endl;
+    return 0;
+}
+ */
+ 
+ /*题目描述
+大家应该都会玩“锤子剪刀布”的游戏：两人同时给出手势，胜负规则如图所示：
+
+
+
+现给出两人的交锋记录，请统计双方的胜、平、负次数，并且给出双方分别出什么手势的胜算最大。
+
+
+
+输入
+输入第1行给出正整数N（<=105），即双方交锋的次数。随后N行，每行给出一次交锋的信息，
+即甲、乙双方同时给出的的手势。C代表“锤子”、J代表“剪刀”、B代表“布”，第1个字母代表甲方，第2个代表乙方，中间有1个空格。
+输出
+输出第1、2行分别给出甲、乙的胜、平、负次数，数字间以1个空格分隔。第3行给出两个字母，
+分别代表甲、乙获胜次数最多的手势，中间有1个空格。如果解不唯一，则输出按字母序最小的解。
+*/
+#include <stdio.h>
+#include <string.h>
+
+int judge(char x,char y)
+{
+	if ((x=='C'&&y=='J')||(x=='J'&&y=='B')||(x=='B'&&y=='C'))
+	return 1;
+	else if (x==y)
+	return 0;
+	else return -1;
+}
+int main()
+{
+	int N;
+	scanf("%d",%N);
+	char player1,player2;
+	int win1=0,win2=0,balance=0,loss1=0,loss2=0;
+	for (int i=0;i<N;i++)
+	{
+		scanf("%c %c",&player1,&player2);
+		int flag=judge(player1,player2);
+		if (flag==1)
+		{
+			win1++;
+			loss2++;
+		}
+		else if(flag==0) balance++;	
+		else if(flag==-1)
+		{
+			win2++;
+			loss1++;
+		}
+	}
+	
+}
