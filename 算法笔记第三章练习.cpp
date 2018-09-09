@@ -279,3 +279,195 @@ int main()
 	return 0;
 }
 */ 
+
+/*
+第四题：题目描述
+第一行输入一个数，为n，第二行输入n个数，这n个数中，如果偶数比奇数多，输出NO，否则输出YES。
+输入
+输入有多组数据。
+每组输入n，然后输入n个整数（1<=n<=1000）。
+输出
+如果偶数比奇数多，输出NO，否则输出YES。 
+
+#include <stdio.h>
+int main()
+{
+	int n,num;
+	;
+	int oddnum=0,evennum=0;
+	while (scanf("%d",&n)!=EOF)
+	{
+		for(int i=0;i<n;i++)
+		{
+			scanf ("%d",&num);
+			if (num%2) oddnum++;
+			else evennum++;
+		}		
+		if (oddnum>evennum) printf("YES\n");
+		else printf("NO\n");
+	}
+	return 0;
+ } */
+ 
+ /*
+ 题目描述
+The task is really simple: given N exits on a highway which forms a simple cycle, 
+you are supposed to tell the shortest distance between any pair of exits.
+输入
+Each input file contains one test case. For each case, the first line contains an integer N (in [3, 105]), 
+followed by N integer distances D1 D2 ... DN, where Di is the distance between the i-th and the (i+1)-st exits, 
+and DN is between the N-th and the 1st exits. All the numbers in a line are separated by a space. 
+The second line gives a positive integer M (<=104), with M lines follow, each contains a pair of exit numbers, 
+provided that the exits are numbered from 1 to N. It is guaranteed that the total round trip distance is no more than 107.
+输出
+For each test case, print your results in M lines, each contains the shortest distance between the corresponding given pair of exits.
+
+translate:出租车排成一个圈，求题目要求的车辆之间的最短距离。第一行给出的是共有几辆车，和每辆相邻车之间的间隙，第二行给出的是需要求得车辆距离的个数，
+后面的数是需要求的车辆之间的间隙个数。 
+
+#include <stdio.h>
+void distance(int dist[],int allsum,int a,int b)
+{
+	int min,max;
+	if (a>b) 
+	{
+		max=a;
+		min=b;
+	}
+	else if(a<b)
+	{
+		max=b;
+		min=a;
+	}
+	else printf("%d",0);
+	int cwdist=0,scwdist=0;//定义顺时针和逆时针的距离 
+	for (int i=min-1;i<=max-2;i++)
+	{
+		cwdist+=dist[i];
+	}
+	scwdist=allsum-cwdist;
+	if (scwdist>=cwdist) printf("%d\n",cwdist);
+	else printf("%d\n",scwdist);
+}
+int main()
+{
+	int N,M;
+	int dist[106];
+	scanf("%d",&N);
+	int allsum=0;
+	for (int i=0;i<N;i++)
+	{
+		scanf("%d",&dist[i]);
+		allsum+=dist[i];
+	} 
+ 	scanf("%d",&M);
+	for(int i=0;i<M;i++)
+	{
+		int a,b;
+		scanf("%d %d",&a,&b);
+		distance(dist,allsum,a,b);
+	}
+	return 0; 
+ }  
+ //below is example
+ #include <iostream>
+#include <vector>
+#include <stdio.h>
+#include <math.h>
+ 
+using namespace std;
+ 
+vector<int> dis;
+vector<int> disToOrigin;
+int sum = 0;
+ 
+int computeMinDis(int s, int e){
+    int minDist1 = 0,minDist2 = 0;
+    int start, end;
+    if(s < e) { start = s; end = e; }
+    else if( s == e ) return 0;
+    else { start = e; end = s; }
+    minDist1 = disToOrigin[end] - disToOrigin[start];
+    minDist2 = sum - minDist1;
+    return minDist1 < minDist2 ? minDist1 : minDist2;
+}
+ 
+int main()
+{
+    int N,M;
+    cin >> N;
+    dis.resize(N+1);
+    disToOrigin.resize(N+1);
+    disToOrigin[1] = 0;
+    int value;
+    for(int i = 1; i <= N; i++){
+        scanf("%d",&value);
+        dis[i] = value;
+        if(i > 1) disToOrigin[i] = sum;
+        sum += value;
+    }
+    cin >> M;
+    int x,y;
+    for(int i = 0; i < M; i++){
+        scanf("%d%d",&x,&y);
+        printf("%d\n",computeMinDis(x,y));
+    }
+    return 0;
+}
+*/
+/*
+题目描述
+给定区间[-231, 231]内的3个整数A、B和C，请判断A+B是否大于C。
+输入
+输入第1行给出正整数T(<=10)，是测试用例的个数。随后给出T组测试用例，每组占一行，顺序给出A、B和C。整数间以空格分隔。
+输出
+对每组测试用例，在一行中输出“Case #X: true”如果A+B>C，否则输出“Case #X: false”，其中X是测试用例的编号（从1开始）。
+
+#include <stdio.h>
+#include <string.h>
+long long StringtoInt(char a[])
+{
+	int lenth=strlen(a);
+	long long sum=0;
+	if(a[0]!='-')
+	{
+		for (int i=0;i<lenth;i++)
+		{
+			sum=sum+(a[i]-'0');
+			sum=sum*10;
+		}
+		return sum/10;	
+	}
+	else 
+	{
+		for (int i=1;i<lenth;i++)
+		{
+			sum=sum+(a[i]-'0');
+			sum=sum*10;
+		}
+		return -sum/10;	
+	}
+
+}
+bool compare(long long a,long long b,long long c)
+{
+	if (a+b>c) return true;
+	else return false; 
+}
+
+int main()
+{
+	int T;
+	scanf("%d",&T);
+	for (int i=0;i<T;i++)
+	{
+		char a[40],b[40],c[40];
+		scanf("%s %s %s",a,b,c);
+		bool flag;
+		flag=compare(StringtoInt(a),StringtoInt(b),StringtoInt(c)); 		
+		if (flag) printf("Case #%d: true\n",i+1);
+		else printf("Case #%d: false\n",i+1);
+	}
+	return 0;	
+}
+*/
