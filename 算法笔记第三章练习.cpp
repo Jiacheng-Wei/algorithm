@@ -770,3 +770,63 @@ int main()
 	else if (B2>=C2&&B2>=J2) printf("B");	
 	return 0;
 }*/
+//第二节
+/*
+第一题： 
+题目描述
+读入N名学生的成绩，将获得某一给定分数的学生人数输出。
+输入
+测试输入包含若干测试用例，每个测试用例的格式为
+第1行：N
+第2行：N名学生的成绩，相邻两数字用一个空格间隔。
+第3行：给定分数
+当读到N=0时输入结束。其中N不超过1000，成绩分数为（包含）0到100之间的一个整数。
+输出
+对每个测试用例，将获得给定分数的学生人数输出。
+样例输入
+4
+70 80 90 100
+80
+3
+65 75 85
+55
+5
+60 90 90 90 85
+90
+0
+样例输出
+1
+0
+3
+
+#include <stdio.h>
+int main()
+{
+	int N;
+	scanf("%d",&N);
+	while (N)
+	{
+		int score[1000];
+		getchar();
+		for (int i=0;i<N;i++)
+		{
+			scanf("%d",&score[i]);
+		}
+		getchar();
+		int mscore;
+		int num=0;
+		scanf("%d",&mscore);
+		for (int i=0;i<N;i++)
+		{
+			if(score[i]==mscore)
+			{
+				num++;
+			}
+		}
+		printf("%d\n",num);
+		getchar();
+		scanf("%d",&N);
+	} 
+	return 0;
+ } 
+ */
