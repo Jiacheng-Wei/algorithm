@@ -642,7 +642,8 @@ int main(){
  	char A[1010],DA,B[1010],DB;
  	while (scanf("%s %c %s %c",A,&DA,B,&DB)!=EOF)
  	{
- 	 	int lenth1,lenth2,num1=0,num2=0;
+ 	 	getchar(); 
+		int lenth1,lenth2,num1=0,num2=0;
  		lenth1=strlen(A);
  		lenth2=strlen(B);
  		int sum1=0,sum2=0;
@@ -706,54 +707,66 @@ int main()
 }
  */
  
- /*题目描述
+ /*
+ 第九题 
+ 题目描述
 大家应该都会玩“锤子剪刀布”的游戏：两人同时给出手势，胜负规则如图所示：
-
-
-
 现给出两人的交锋记录，请统计双方的胜、平、负次数，并且给出双方分别出什么手势的胜算最大。
-
-
-
 输入
 输入第1行给出正整数N（<=105），即双方交锋的次数。随后N行，每行给出一次交锋的信息，
 即甲、乙双方同时给出的的手势。C代表“锤子”、J代表“剪刀”、B代表“布”，第1个字母代表甲方，第2个代表乙方，中间有1个空格。
 输出
 输出第1、2行分别给出甲、乙的胜、平、负次数，数字间以1个空格分隔。第3行给出两个字母，
 分别代表甲、乙获胜次数最多的手势，中间有1个空格。如果解不唯一，则输出按字母序最小的解。
-*/
+
 #include <stdio.h>
 #include <string.h>
 
 int judge(char x,char y)
 {
-	if ((x=='C'&&y=='J')||(x=='J'&&y=='B')||(x=='B'&&y=='C'))
-	return 1;
-	else if (x==y)
-	return 0;
+	if ((x=='C'&&y=='J')||(x=='J'&&y=='B')||(x=='B'&&y=='C')) return 1;
+	else if (x==y) return 0;
 	else return -1;
 }
 int main()
 {
 	int N;
-	scanf("%d",%N);
+	scanf("%d",&N);
+	getchar();
 	char player1,player2;
+	int C1=0,J1=0,B1=0,C2=0,J2=0,B2=0; 
 	int win1=0,win2=0,balance=0,loss1=0,loss2=0;
 	for (int i=0;i<N;i++)
 	{
+		
 		scanf("%c %c",&player1,&player2);
+		getchar();
 		int flag=judge(player1,player2);
 		if (flag==1)
 		{
 			win1++;
 			loss2++;
+			if(player1=='C') C1++;
+			else if (player1=='J') J1++;
+			else B1++;
 		}
 		else if(flag==0) balance++;	
 		else if(flag==-1)
 		{
 			win2++;
 			loss1++;
+			if(player2=='C') C2++;
+			else if (player2=='J') J2++;
+			else B2++;
 		}
 	}
-	
-}
+	printf("%d %d %d\n",win1,balance,loss1);
+	printf("%d %d %d\n",win2,balance,loss2);
+	if (C1>=J1&&C1>B1) printf("C ");
+	else if (J1>B1&&J1>C1) printf("J ");
+	else if (B1>=C1&&B1>=J1) printf("B ");
+	if (C2>=J2&&C2>B2) printf("C");
+	else if (J2>B2&&J2>C2) printf("J");
+	else if (B2>=C2&&B2>=J2) printf("B");	
+	return 0;
+}*/
