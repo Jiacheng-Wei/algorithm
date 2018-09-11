@@ -877,4 +877,221 @@ int main()
 	}
 	return 0;
 } */
+/*
+第三题 
+题目描述
+输入N个学生的信息，然后进行查询。
+
+输入
+输入的第一行为N，即学生的个数(N<=1000)
+
+接下来的N行包括N个学生的信息，信息格式如下：
+01 李江 男 21
+02 刘唐 男 23
+03 张军 男 19
+04 王娜 女 19
+然后输入一个M(M<=10000),接下来会有M行，代表M次查询，每行输入一个学号，格式如下：
+02
+03
+01
+04
+输出
+输出M行，每行包括一个对应于查询的学生的信息。
+
+如果没有对应的学生信息，则输出“No Answer!”
+
+#include <stdio.h>
+#include <string.h>
+struct student{
+	char num[100];
+	char name[200];
+	char sex[10];
+	int age; 
+}stu[1010];
+int main()
+{
+	int n;
+	scanf("%d",&n);
+	getchar();
+	for (int i=0;i<n;i++)
+	{
+		scanf("%s %s %s %d",&stu[i].num,&stu[i].name,&stu[i].sex,&stu[i].age);
+	}
+	getchar();
+	int m;
+	scanf("%d",&m);
+	char match[10000][100];
+	for (int i=0;i<m;i++)
+	{
+		scanf("%s",match[i]);
+	}
+	
+	for (int i=0;i<m;i++)
+	{
+
+		int flag=0;
+		for (int j=0;j<n;j++)
+		{
+			if(!strcmp(stu[j].num,match[i]))
+			{
+				printf("%s %s %s %d\n",stu[j].num,stu[j].name,stu[j].sex,stu[j].age);
+				flag=1;
+				break;
+			} 
+		}
+		if (!flag) printf("No Answer!\n"); 
+	}
+	return 0;
+}*/
+/*
+第四题 
+题目描述
+输入数组长度 n 
+输入数组      a[1...n] 
+输入查找个数m 
+输入查找数字b[1...m] 
+输出 YES or NO  查找有则YES 否则NO 。
+输入
+输入有多组数据。
+每组输入n，然后输入n个整数，再输入m，然后再输入m个整数（1<=m<=n<=100）。
+输出
+如果在n个数组中输出YES否则输出NO。
+
+#include <stdio.h>
+int main()
+{
+	int a[1000],b[1000];
+	int n;
+	while (scanf("%d",&n)!=EOF)
+	{
+		for (int i=0;i<n;i++)
+		{
+			scanf("%d",&a[i]);
+		}
+		int m;
+		scanf("%d",&m);
+		for (int i=0;i<m;i++)
+		{
+			scanf("%d",&b[i]);
+		}
+		for (int i=0;i<m;i++)
+		{
+			int flag=0;
+			for (int j=0;j<n;j++)
+			{
+				if(b[i]==a[j]) 
+				{
+					flag=1;
+					break;
+				}
+			}
+			if (flag==1) printf("YES\n");
+			else printf("NO\n");
+		}	
+	}
+	return 0;
+}
+//below is example
+#include <stdio.h>
+int main() {
+    int n;
+    int m;
+    int buf[101];
+    int search[101];
+    while (scanf("%d", &n) != EOF) {
+        for (int i = 0; i < n; i++) {
+            scanf("%d", &buf[i]);
+        }
+        scanf("%d", &m);
+        for (int i = 0; i < m; i++) {
+            scanf("%d", &search[i]);
+        }
+        for (int i = 0; i < m; i++) {
+            int j;
+            for (j = 0; j < n; j++) {
+                if (buf[j] == search[i]) {
+                    printf("YES\n");
+                    break;
+                }
+            }
+            if (j == n) {
+                printf("NO\n");
+            }
+        }
+
+    }
+    return 0;
+}*/
+/*
+第五题 
+题目描述
+输入n个学生的信息，每行包括学号、姓名、性别和年龄，每一个属性使用空格分开。最后再输入一学号，将该学号对应的学生信息输出。
+输入
+测试数据有多组，第一行为样例数m。对于每个样例，第一行为学生人数n(n不超过20)，加下来n行每行4个整数分别表示学号、姓名、性别和年龄，
+最后一行表示查询的学号。
+输出
+输出m行，每行表示查询的学生信息，格式参见样例。
+
+#include <stdio.h> 
+struct student{
+	int num;
+	char name[200];
+	char sex[10];
+	int age; 
+}stu[1010];
+
+int main()
+{
+	int m;
+	scanf("%d",&m);
+	for(int j=0;j<m;j++)
+	{
+		int n;
+		scanf("%d",&n);
+		for(int i=0;i<n;i++)
+		{
+			scanf("%d %s %s %d",&stu[i].num,&stu[i].name,&stu[i].sex,&stu[i].age);
+		}
+		int search;
+		scanf("%d",&search);
+		printf("%d %s %s %d\n",stu[search-1].num,stu[search-1].name,stu[search-1].sex,stu[search-1].age);	
+	}
+	return 0;
+}
+
+//below is example
+#include <stdlib.h>
+#include <stdio.h>
+#include<string.h>
+ 
+typedef struct Student{
+	int ID;//学号
+	char name[100];//姓名
+	char sex[100];//性别
+	int age;//年龄
+}Student;
+int main()
+{
+    int i,N,n,j,SID;
+	Student student[21];
+    scanf("%d",&n);
+	//n组测试用例
+	for(i = 0;i < n;i++){
+		scanf("%d",&N);
+		//输入n个学生的信息，每行包括学号、姓名、性别和年龄
+		for(j = 0;j < N;j++){
+			scanf("%d %s %s %d\n",&student[j].ID,student[j].name,student[j].sex,&student[j].age);
+		}
+		//最后再输入一学号
+		scanf("%d",&SID);
+		//将该学号对应的学生信息输出。
+		for(j = 0;j < N;j++){
+			if(student[j].ID == SID){
+				printf("%d %s %s %d\n",student[j].ID,student[j].name,student[j].sex,student[j].age);
+				break;
+			}
+		}
+	}//for
+    return 0;
+}*/
 
