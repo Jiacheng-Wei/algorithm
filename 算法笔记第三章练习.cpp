@@ -1094,4 +1094,68 @@ int main()
 	}//for
     return 0;
 }*/
+//第三章 
+/*
+第一题：
+输入一个高度h，输出一个高为h，上底边为h的梯形。
+输入
+一个整数h(1<=h<=1000)。
+输出
+h所对应的梯形。 
+
+#include <stdio.h>
+int main()
+{
+	int h;
+	while (scanf("%d",&h)!=EOF)
+	{
+		int n=h;
+		int m=h+2*(h-1);
+		for (int i=0;i<n;i++)
+		{
+			for (int j=0;j<m-h;j++)
+			{
+				printf(" ");
+			}
+			for (int j=0;j<h;j++)
+			{
+				printf("*");
+			}
+			printf("\n");
+			h+=2;
+		}	
+	}
+	return 0;
+ } 
+*/ 
+/*
+Given any string of N (>=5) characters, you are asked to form the characters into the shape of U. For example, "helloworld" can be printed as:
+h  d
+e  l
+l  r
+lowo
+That is, the characters must be printed in the original order, starting top-down from the left vertical line with n1 characters, 
+then left to right along the bottom line with n2 characters, and finally bottom-up along the vertical line with n3 characters. 
+And more, we would like U to be as squared as possible -- that is, it must be satisfied that n1 = n3 = max { k| k <= n2 for all 3 <= n2 <= N } 
+with n1 + n2 + n3 - 2 = N.
+输入
+Each input file contains one test case. Each case contains one string with no less than 5 and no more than 80 characters in a line.
+The string contains no white space.
+输出
+For each test case, print the input string in the shape of U as specified in the description.
+由线性规划可以知道
+k>=1；k<=(N+2) /3;k<=(N-1)/2;
+*/
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+	char N[100];
+	scanf("%s",N);
+	int lenth=strlen(N);
+	int n1,n2;
+	char n[n1][n2];
+	
+	
+ } 
 
