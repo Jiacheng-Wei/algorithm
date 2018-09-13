@@ -1269,10 +1269,37 @@ int main()
  * * 
 * * *
 数据规模 1<= n <=50 
-*/ 
+
 #include <stdio.h>
+#include <string.h>
+
 int main()
 {
-	int n;
-	scanf("%d",&n);
-}
+    int num;
+    scanf("%d",&num);
+    int cnt = num;
+    for(int i = 0;i < 2 * num - 1;i++)
+	{
+        for(int k = cnt;k < num;k++)
+		{
+            printf(" ");//cnt用以控制"*"前空格的个数 
+        }
+        for(int j = cnt;j > 0;j--)
+		{
+            if(j == 1) printf("*\n");//当输出到最后一个*号时不输出空格 
+            else
+			{
+                printf("* ");   
+            }
+        }
+        if(i < num - 1)//翻转输出，以使其成为倒三角形 
+		{
+            cnt--;
+        }
+		else
+		{
+            cnt++;
+        } 
+    }
+    return 0;
+}*/ 
