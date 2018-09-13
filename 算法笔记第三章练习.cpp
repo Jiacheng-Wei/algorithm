@@ -1129,6 +1129,7 @@ int main()
  } 
 */ 
 /*
+第二题 
 Given any string of N (>=5) characters, you are asked to form the characters into the shape of U. For example, "helloworld" can be printed as:
 h  d
 e  l
@@ -1145,17 +1146,133 @@ The string contains no white space.
 For each test case, print the input string in the shape of U as specified in the description.
 由线性规划可以知道
 k>=1；k<=(N+2) /3;k<=(N-1)/2;
-*/
+
 #include<stdio.h>
 #include<string.h>
+#include <math.h>
+int min(int x)
+{
+	int a,b;
+	a=(x+2)/3;
+	b=(x-1)/2;
+	if (a>=b) return b;
+	if (a<b) return a;
+}
+int maxn1(int x)
+{
+	int k=min(x);
+	int n1=floor(k);
+	return n1;
+ } //以上都是计算k的值的函数，通过线性规划知道k的范围（k<=(N+2) /3;k<=(N-1)/2;），然后取两个范围的最小值的向下取整就是k的值 
 int main()
 {
 	char N[100];
 	scanf("%s",N);
+	getchar();
 	int lenth=strlen(N);
+	//printf("%d\n",lenth);
 	int n1,n2;
-	char n[n1][n2];
-	
-	
+	n1=maxn1(lenth);
+	n2=lenth-2*n1+2;
+	//printf("%d %d",n1,n2);
+	char n[n1][n2]; 
+	for (int b=0;b<n1;b++)
+	{
+		for (int c=0;c<n2;c++)
+		{
+			n[b][c]=' ';
+		}
+	}
+	int i,j,k;
+	for (i=0;i<n1;i++)
+	{
+		n[i][0]=N[i];
+	}
+	int a=i-1;
+	for(j=1;j<n2;j++)
+	{
+		n[a][j]=N[i];
+		i++;
+	}
+	a=a-1;
+	for (a;a>=0;a--)
+	{
+		n[a][j-1]=N[i];
+		i++;
+	}
+	for (int b=0;b<n1;b++)
+	{
+		for (int c=0;c<n2;c++)
+		{
+			printf("%c",n[b][c]);
+		}
+		printf("\n");
+	}
+	return 0;
  } 
+*/
+/*
+第三题 
+请输入高度h，输入一个高为h，上底边长为h 的等腰梯形（例如h=4，图形如下）。
+   ****
+  ******
+ ********
+**********
+输入
+输入第一行表示样例数m，接下来m行每行一个整数h，h不超过10。
+输出
+对应于m个case输出要求的等腰梯形。
 
+#include <stdio.h>
+int main()
+{
+	int m;
+	scanf("%d",&m);
+	for (int i=0;i<m;i++)
+	{
+		int h;
+		scanf("%d",&h);
+		if (h<=10)
+		{
+			int n=h;
+			int max=3*h-2;
+			for (int k=0;k<n;k++)
+			{
+				for (int j=0;j<h-1-k;j++)
+				{
+					printf(" ");
+				}
+				for (int j=0;j<h+2*k;j++)
+				{
+					printf("*");
+				}
+				for (int j=0;j<h-1-k;j++)
+				{
+					printf(" ");
+				}
+				printf("\n");
+			}
+		}
+	}
+	return 0;
+}
+*/
+/*
+第四题 
+问题：输入n，输出正倒n层星号三角形。首行顶格，星号间有一空格，效果见样例 
+输入样例： 
+3 
+输出样例：
+* * *
+ * * 
+  *
+ * * 
+* * *
+数据规模 1<= n <=50 
+*/ 
+#include <stdio.h>
+int main()
+{
+	int n;
+	scanf("%d",&n);
+}
