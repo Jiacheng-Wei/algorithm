@@ -1305,6 +1305,7 @@ int main()
 }*/ 
 //第三章
 /*
+第一题： 
 有两个日期，求两个日期之间的天数，如果两个日期是连续的我们规定他们之间的天数为两天。为了满足这个条件只需要设置ans的初始值为1即可 
 输入
 有多组数据，每组数据有两行，分别表示两个日期，形式为YYYYMMDD
@@ -1352,4 +1353,159 @@ int main()
 	}
 	return 0;
 */
+/*
+第二题：
+题目描述
+We now use the Gregorian style of dating in Russia. The leap years are years with number divisible 
+by 4 but not divisible by 100, or divisible by 400.For example, years 2004, 2180 and 2400 are leap. 
+Years 2004, 2181 and 2300 are not leap.Your task is to write a program which will compute the day 
+of week corresponding to a given date in the nearest past or in the future using today’s agreement 
+about dating.
+输入
+There is one single line contains the day number d, month name M and year number y(1000≤y≤3000). 
+The month name is the corresponding English name starting from the capital letter.
+输出
+Output a single line with the English name of the day of week corresponding to the date, starting 
+from the capital letter. All other letters must be in lower case. 
+
+//以2018年9月18日星期三为计算起点，计算每一个日期所对应的day of week 
+#include<stdio.h>
+#include <string.h>
+int month[13][2]={{0,0},{31,31},{28,29},{31,31},{30,30},{31,31},{30,30},{31,31},{31,31},{30,30},{31,31},{30,30},{31,31}};
+char bigweek[7][20]={"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+char smallweek[7][20]={"Monday","Sunday","Saturday","Friday","Thursday","Wednesday","Tuesday"};
+char year[13][20] = { "","January","February","March","April","May","June","July","August","September","October","November","December" };
+bool isLeap(int year)
+{
+	return (year%4==0&&year%100!=0)||(year%400==0);
+}
+
+int calculate(int time1,int time2)
+{
+	int temp;	
+	if (time1>time2)
+	{
+		time1=temp;
+		time1=time2;
+		time2=temp;
+	 } 	
+	int y1,y2,m1,m2,d1,d2;
+	y1=time1/10000,m1=time1%10000/100,d1=time1%100;
+	y2=time2/10000,m2=time2%10000/100,d2=time2%100;
+	int ans=1;
+	while (y1<y2||m1<m2||d1<d2)
+	{
+		d1++;
+		if(d1==month[m1][isLeap(y1)]+1)
+		{
+			m1++;
+			d1=1;
+		}
+		if(m1==13)
+		{
+			y1++;
+			m1=1;
+		}
+		ans++;
+	}
+	return ans;
+}
+
+void judgeday(int time1,int ans)
+{
+	int judge;
+	if (time1>=20180918)
+	{
+		judge=ans%7;
+		printf("%s\n",bigweek[judge]);
+	}
+	else
+	{
+		judge=(ans-2)%7;
+		printf("%s\n",smallweek[judge]);
+	}
+}
+int main()
+{
+	int time1,time2;
+	time2=20180918;
+	char mon[20];
+	int y,m,d;
+	while (scanf("%d %s %d",&d,mon,&y)!=EOF)
+	{
+		for (int i=1;i<13;i++)
+		{
+			if (strcmp(mon,year[i])==0)
+			{
+				m=i;
+				break;
+			}
+		}
+		time1=y*10000+m*100+d;
+		//printf("%d %d",time1,time2);//调试代码 
+		int ans=calculate(time1,time2);
+		judgeday(time1,ans);
+	}
+	return 0;
+ } 
+ 
+ //below is example
+ #include <stdio.h>
+#include <string.h>
+#include<algorithm>
+using namespace std;
+ 
+int month[13][2] = { { 0,0 },{ 31,31 },{ 28,29 },{ 31,31 },{ 30,30 },{ 31,31 },{ 30,30 },{ 31,31 },{ 31,31 },{ 30,30 },{ 31,31 },{ 30,30 },{ 31,31 } };
+ 
+char daybig[7][20] = { "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday" };//日期比今天大，正向输出
+char daysmall[7][20] = { "Monday","Sunday","Saturday","Friday","Thursday","Wednesday","Tuesday" };//日期比今天小，反向输出
+ 
+char year[13][20] = { "","January","February","March","April","May","June","July","August","September","October","November","December" };//这个技巧用好多次了，字符和下标/数字的转换
+ 
+bool isleap(int y) {
+	return (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0); //返回是否闰年
+}
+int caldays(int y1, int m1, int d1, int y, int m, int d) { //计算两个日期之间的间距的天数
+	int days = 0;
+	while (y1 < y || m1 < m || d1 < d) {
+		d1++;
+		if (d1 == month[m1][isleap(y1)] + 1) {
+		d1 = 1;
+		m1++;
+		}
+		if (m1 == 13) {
+		m1 = 1;
+		y1++;
+		}
+		days++;
+	}
+	return days;
+}
+int main() {
+	int d, m, y;
+	char mon[20];
+	while (scanf("%d %s %d", &d, mon, &y) != EOF) {//字母月数转换为数字
+		for (int i = 1; i <= 12; i++) {
+			if (strcmp(mon, year[i]) == 0) {
+				m = i;
+				break;
+			}
+		}
+		int y1 = 2018, m1 = 6, d1 = 6;//今天周三
+		int time1 = 10000 * y1 + 100 * m1 + d1;
+		int time = 10000 * y + 100 * m + d;
+		int ans;
+		if (time < time1) { //反向
+			swap(y1, y), swap(m1, m), swap(d1, d);
+			ans = caldays(y1, m1, d1, y, m, d);
+			printf("%s\n", daysmall[(ans - 2) % 7]);//小小的数学推导
+		}
+		else { //正向
+			ans = caldays(y1, m1, d1, y, m, d);
+			printf("%s\n", daybig[(ans + 2) % 7]);
+		}
+	}
+	return 0;
+}*/ 
+
 
