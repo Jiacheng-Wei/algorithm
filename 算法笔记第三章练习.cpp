@@ -1650,3 +1650,52 @@ int main()
 	return 0;
 }
 */
+//第四章
+/*
+第一题 
+题目描述
+输入两个不超过整型定义的非负10进制整数A和B(<=231-1)，输出A+B的m (1 < m <10)进制数。
+输入
+输入格式：测试输入包含若干测试用例。每个测试用例占一行，给出m和A，B的值。
+当m为0时输入结束。
+输出
+输出格式：每个测试用例的输出占一行，输出A+B的m进制数。
+
+#include <stdio.h>
+int main()
+{
+	int m;
+	while (1)
+	{
+		scanf("%d",&m);
+		if (m!=0)
+		{
+			long long A,B,C;
+			scanf("%lld %lld",&A,&B);
+			C=A+B;
+			int num[100];
+			int i=0;
+			while (C)
+			{
+				num[i]=(int)(C%m);
+				C=C/m;
+				i++;
+			}
+			if(i==0)
+			{
+				printf("0\n");
+			} 
+			else 
+			{
+			 	for (int j=i-1;j>=0;j--)
+				{
+					printf("%d",num[j]);
+				}
+				printf("\n");
+			}
+		}
+		else break;
+	}
+	return 0;
+ } 
+ */ 
