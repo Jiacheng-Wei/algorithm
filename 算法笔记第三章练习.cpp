@@ -1699,3 +1699,168 @@ int main()
 	return 0;
  } 
  */ 
+ /*
+ 第二题: 
+ 求任意两个不同进制非负整数的转换（2进制～16进制），所给整数在long所能表达的范围之内。
+不同进制的表示符号为（0，1，...，9，a，b，...，f）或者（0，1，...，9，A，B，...，F）。
+输入
+输入只有一行，包含三个整数a，n，b。a表示其后的n 是a进制整数，b表示欲将a进制整数n转换成b进制整数。a，b是十进制整数，2 =< a，b <= 16。
+输出
+可能有多组测试数据，对于每组数据，输出包含一行，该行有一个整数为转换后的b进制数。输出时字母符号全部用大写表示，即（0，1，...，9，A，B，...，F）。
+
+#include <stdio.h>
+#include <string.h>
+
+char n[1001];
+char ans[1001];
+char up[16]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+
+long todecimal(int a,char n[])
+{
+	int i=0,sum=0;
+	int lenth=strlen(n);
+	for (int i=0;i<lenth;i++)
+	{
+		if (n[i]>='a'&&n[i]<='f')
+		{
+			sum=(sum+(n[i]-'a'+10))*a;
+		}
+		else if(n[i]>='A'&&n[i]<='F')
+		{
+			sum=(sum+(n[i]-'A'+10))*a;//注意在啊，abcdef的情况下要+10才能转化成110进制 
+		}
+		else if(n[i]>='0'&&n[i]<='9')
+		{
+			sum=(sum+(n[i]-'0'))*a;
+		}
+	}
+	sum=sum/a;
+	return sum;
+}
+
+void toans(long sum,int b)
+{
+	int i=0;
+
+	//while (sum>0)
+	//{
+	//	int temp;
+	//	temp=sum%b;
+	//	ans[i]=up[temp];
+	//	sum=sum/b;
+	//	i++;
+	//}
+	//这里注意一下的是，这里要用do...while 的格式保证在输入数字为0时，程序依然能运行 
+	
+	do 
+	{
+		int temp;
+		temp=sum%b;
+		ans[i]=up[temp];
+		sum=sum/b;
+		i++;
+	}while (sum>0);
+	for (int j=i-1;j>=0;j--)
+	{
+		printf("%c",ans[j]);
+	}
+	printf("\n");
+}
+
+int main()
+{
+	int a,b;
+	while (scanf("%d %s %d",&a,n,&b)!=EOF)
+	{
+		if (a>=2&&b>=2)
+		{
+			long sum=todecimal(a,n);
+			//printf("%ld",sum);
+			toans(sum,b);
+		}
+	}
+	return 0;
+ } 
+ 
+//below is example, i haven't found what's wrong in my codes,it's strange.
+#include <string.h>
+#include <stdio.h>
+ 
+char str[1001];
+char ans[1001];
+
+//转换为十进制
+// str是a进制数字
+
+long long int ToD(int a){
+    int c,len,i;
+    long long int sum,w;
+    len = strlen(str);
+    //转换为十进制的数字
+    sum = 0;
+    //权值
+    w = 1;
+    //从低位到高位遍历每一个数字
+     for(i = len-1;i >= 0;i--){
+         //0 - 9
+        if(str[i] >= '0' && str[i] <= '9'){
+            c = str[i] - '0';
+        }
+		//A - F
+        else if(str[i] >= 'A' && str[i] <= 'F'){
+            c = str[i] - 'A' + 10;
+        }
+		//a - f
+        else{
+            c = str[i] - 'a' + 10;
+        }
+		//累加该位数字和该位数字的权值的积
+        sum  +=  c * w;
+		//进制权值
+        w *= a;
+     }
+    return sum;
+}
+
+// 十进制数字num转换为b进制数字，并用ans存储
+
+int ToAny(long long int num,int b){
+    int index = 0,c;
+    do{
+        //计算该位数字
+        c = num % b;
+        //将数字转换为字符
+        ans[index++] = (c < 10) ? (c + '0') : (c - 10 + 'A') ;
+        num /= b;
+    }while(num);
+    return index;
+}
+int main()
+{
+	long long int c;
+    int len,a,b,i;
+	while(scanf("%d %s %d",&a,str,&b) != EOF){
+		//转换为十进制
+        c = ToD(a);
+		//转换为b进制
+        len = ToAny(c,b);
+		//输出
+        for(i = len-1;i >= 0;i--){
+            printf("%c",ans[i]);
+        }
+        printf("\n");
+	}
+    return 0;
+}
+*/ 
+/*
+第三题： 
+题目描述
+将一个长度最多为30位数字的十进制非负整数转换为二进制数输出。
+输入
+多组数据，每行为一个长度不超过30位的十进制非负整数。
+（注意是10进制数字的个数可能有30个，而非30bits的整数）
+输出
+每行输出对应的二进制数。
+*/
+
