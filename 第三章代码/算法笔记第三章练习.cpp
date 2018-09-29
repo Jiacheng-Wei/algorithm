@@ -1862,5 +1862,35 @@ int main()
 （注意是10进制数字的个数可能有30个，而非30bits的整数）
 输出
 每行输出对应的二进制数。
+方法参考地址：https://blog.csdn.net/u014492609/article/details/44522267 
 */
+#include<stdio.h>
+#include<string>
+
+char num[40];
+char bin[200];
+
+void output(char str[])
+{
+	int lenth=strlen(str);
+	for (int i=lenth-1;i>=0;i--)
+	{
+		printf("%c",str[i]);
+	}
+	printf("\n");
+ } 
+
+char *dec2bin(char num[])
+{
+	int lenth=strlen(num);
+	int sum
+}
+
+int main()
+{
+	while (scanf("%s",num)!=EOF)
+	{
+		
+	 } 
+ } 
 
