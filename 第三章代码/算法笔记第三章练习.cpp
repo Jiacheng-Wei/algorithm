@@ -1865,32 +1865,116 @@ int main()
 方法参考地址：https://blog.csdn.net/u014492609/article/details/44522267 
 */
 #include<stdio.h>
-#include<string>
+#include<string.h>
+#include<stdlib.h>
 
 char num[40];
-char bin[200];
+char bin[200]; 
 
-void output(char str[])
-{
-	int lenth=strlen(str);
-	for (int i=lenth-1;i>=0;i--)
-	{
-		printf("%c",str[i]);
-	}
-	printf("\n");
- } 
-
-char *dec2bin(char num[])
+void dec2bin(char num[])
 {
 	int lenth=strlen(num);
-	int sum
+	int sum=1,k=0;
+	int i,d;
+	memset(bin,0,sizeof(bin));//这里一定要初始化bin数组，因为全局变量不会被重置 
+	while (sum)
+	{
+		sum=0;
+		for (i=0;i<lenth;i++)
+		{
+			d=(num[i]-'0')/2;
+			sum=sum+d;
+			
+			if (i==lenth-1)
+			{
+				bin[k++]=(num[i]-'0')%2+'0';
+			}
+			else
+			{
+				num[i+1]=num[i+1]+(num[i]-'0')%2*10;
+			}
+			num[i]=d+'0';
+		}
+	}
+	for (int j=k-1;j>=0;j--)
+	{
+		printf("%c",bin[j]);
+	}
+	printf("\n");
 }
 
 int main()
 {
 	while (scanf("%s",num)!=EOF)
 	{
-		
+		dec2bin(num);
 	 } 
+	 return 0;
  } 
+/*
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+ 
+#define DATA 40
+#define MAX 200
+ 
+void tenToBin(char *str);
+ 
+char bin[MAX];
+ 
+int main()
+{
+    char str[DATA];
+ 
+    while(scanf("%s", str) != EOF)
+    {
+        tenToBin(str);
+        puts(bin);  
+    }
+ 
+    return 0;
+}
+// Description:字符串整数转换为二进制
+void tenToBin(char *str)
+{
+    int i, j, k, len, sum, d;
+    char temp;
+ 
+    //初始化参数
+    sum = 1;
+    len = strlen(str);
+    k = 0;
+    memset(bin, 0, sizeof(bin));
+ 
+    while(sum)
+    {
+        sum = 0;
+ 
+        for(i = 0; i < len; i ++)
+        {
+            d = (str[i] - '0') / 2;
+            sum += d;
+ 
+            if(i == len - 1)
+            {
+                bin[k ++] = (str[i] - '0') % 2 + '0';
+            }else
+            {
+                str[i + 1] += (str[i] - '0') % 2 * 10;
+            }
+ 
+            str[i] = d + '0';
+        }
+    }
+     
+    //逆序
+    for(i = 0, j = k - 1; i < j; i ++, j --)
+    {
+        temp = bin[j];
+        bin[j] = bin[i];
+        bin[i] = temp;
+    }
+}
+*/
 
