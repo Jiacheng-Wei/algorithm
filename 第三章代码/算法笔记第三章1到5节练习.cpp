@@ -1863,7 +1863,8 @@ int main()
 输出
 每行输出对应的二进制数。
 方法参考地址：https://blog.csdn.net/u014492609/article/details/44522267 
-*/
+				https://blog.csdn.net/wzy_1988/article/details/8640266
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -1911,7 +1912,8 @@ int main()
 	 } 
 	 return 0;
  } 
-/*
+
+//below is example 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -1977,4 +1979,41 @@ void tenToBin(char *str)
     }
 }
 */
+/*
+题目描述
+输入一个整数，将其转换成八进制数输出。
+输入
+输入包括一个整数N(0<=N<=100000)。
+输出
+可能有多组测试数据，对于每组数据，
+输出N的八进制表示数。
 
+#include <stdio.h>
+#include <string.h>
+
+int eight[100];
+
+void dec2eight(int num)
+{	
+	int i=0;
+	do
+	{
+		eight[i]=num%8;
+		num=num/8;
+		i++;
+	}while(num>0);
+	for (int j=i-1;j>=0;j--)
+	{
+		printf("%d",eight[j]);
+	}
+	printf("\n");
+}
+int main()
+{
+	int num;
+	while (scanf("%d",&num)!=EOF)
+	{
+		dec2eight(num);
+	 } 
+	 return 0;
+ } */
