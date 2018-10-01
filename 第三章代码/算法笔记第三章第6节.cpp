@@ -9,7 +9,7 @@
 可能有多组测试数据，对于每组数据，
 不借用任何字符串库函数实现无冗余地接受两个字符串，然后把它们无冗余的连接起来。
 输出连接后的字符串。 
- 
+
 #include<stdio.h>
 #include<string.h>
 int main()
@@ -21,7 +21,7 @@ int main()
 		lenth1=strlen(str1);
 		lenth2=strlen(str2);
 		lenth=lenth1+lenth2;
-		char str[lenth];
+		char str[lenth+1];
 		int i,j;
 		for (i=0;i<lenth1;i++)
 		{
@@ -68,3 +68,8 @@ int main()
     return 0;
 }
 */
+/*字符串的结束符是"\0"的ASCII码是0，即空字符NULL，占用一个字符位，因此开字符串的时候千万要记得字符数组的长度一定要比实际存储字符串的长度至少多1。
+注意：int型组的末尾不需要加\0，只有char型数组需要。还需要注意\0跟空格不是同一个东西，空格的ASCII码是32，切勿混淆。
+如果不使用scanf函数的%s格式或gets函数输入字符串（例如使用getchar），一定要在输入的每个字符串后加入"\0",否则printf和puts输出字符串会因为无法识别
+字符串末尾而输出一大堆乱码。（例题见第三章第六节第一题）*/ 
+
